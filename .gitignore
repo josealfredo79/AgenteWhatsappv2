@@ -1,0 +1,8 @@
+node_modules
+google-credentials.json
+.env
+.env.local
+frontend/.env
+frontend/.env.local
+frontend/google-credentials.json
+node_modules

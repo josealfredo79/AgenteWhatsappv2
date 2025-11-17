@@ -1,0 +1,26 @@
+{
+  "name": "agente-whatsapp-mcp",
+  "version": "1.0.0",
+  "description": "Agente WhatsApp con Claude AI, Google APIs, Twilio, Express, WebSocket y MCP.",
+  "main": "server.js",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.27.0",
+    "@modelcontextprotocol/sdk": "^0.5.0",
+    "express": "^4.18.2",
+    "googleapis": "^128.0.0",
+    "socket.io": "^4.6.1",
+    "twilio": "^4.19.0",
+    "cors": "^2.8.5",
+    "dotenv": "^16.3.1"
+  },
+  "devDependencies": {
+    "jest": "^29.7.0",
+    "nodemon": "^3.1.0",
+    "supertest": "^6.3.3"
+  }
+}
