@@ -1,0 +1,17 @@
+# Nixpacks configuration para Next.js + MCP en Railway
+# Desactiva caché problemática y define fases explícitas para evitar errores EBUSY
+
+[phases.setup]
+nixPkgs = ["nodejs", "npm"]
+
+[phases.install]
+cmds = ["npm ci"]
+
+[phases.build]
+cmds = ["cd frontend && npm ci && npm run build"]
+
+[phases.start]
+cmds = ["cd frontend && npm run start"]
+
+[phases.cache]
+paths = []
