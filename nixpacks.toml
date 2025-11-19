@@ -3,8 +3,7 @@
 # Nixpacks detecta automáticamente Node.js desde package.json
 
 [phases.setup]
-nixPkgs = ["nodejs-18_x"]
-nixpkgsArchive = "https://github.com/NixOS/nixpkgs/archive/refs/tags/23.11.tar.gz"
+nixPkgs = ["nodejs_18"]
 
 [phases.install]
 cmds = [
