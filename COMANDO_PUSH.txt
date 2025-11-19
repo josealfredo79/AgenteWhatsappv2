@@ -1,0 +1,20 @@
+COMANDO PARA HACER PUSH A GITHUB
+================================
+
+Ejecuta este comando en tu terminal:
+
+    git push origin master
+
+Cuando te pida credenciales:
+  Username: josealfredo79
+  Password: [tu contraseña de GitHub]
+
+⚠️ IMPORTANTE:
+- Si GitHub te dice que las contraseñas ya no se aceptan, necesitarás
+  crear un Personal Access Token en:
+  https://github.com/settings/tokens
+  
+- Si usas token, cuando pida "Password", pega el TOKEN (no tu contraseña)
+
+Después del push, Railway detectará automáticamente los cambios y desplegará.
+

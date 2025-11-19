@@ -30,14 +30,25 @@ yarn-debug.log*
 yarn-error.log*
 .pnpm-debug.log*
 
-# env files (can opt-in for committing if needed)
-.env*
+# Environment variables - NUNCA SUBIR CREDENCIALES
+.env
+.env.*
+!.env.example
+*.env
+*.env.local
+*.env.production
+*.env.development
+
+# Google Credentials - CRÍTICO: NUNCA SUBIR
 google-credentials.json
-../.env
-../.env.local
-./.env
-./.env.local
-./google-credentials.json
+*-credentials.json
+**/google-credentials.json
+
+# API Keys y Tokens - NUNCA SUBIR
+*.key
+*.pem
+secrets/
+.secrets/
 
 # vercel
 .vercel

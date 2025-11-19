@@ -1,8 +1,67 @@
-node_modules
-google-credentials.json
+# Dependencies
+node_modules/
+**/node_modules/
+
+# Environment variables - NUNCA SUBIR CREDENCIALES
 .env
-.env.local
-frontend/.env
-frontend/.env.local
-frontend/google-credentials.json
-node_modules
+.env.*
+!.env.example
+*.env
+*.env.local
+*.env.production
+*.env.development
+
+# Google Credentials - CRÍTICO: NUNCA SUBIR
+google-credentials.json
+**/google-credentials.json
+*-credentials.json
+*.json
+!package.json
+!package-lock.json
+!tsconfig.json
+!railway.json
+!nixpacks.toml
+
+# API Keys y Tokens - NUNCA SUBIR
+*.key
+*.pem
+*.p12
+*.pfx
+secrets/
+.secrets/
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# Next.js
+.next/
+out/
+build/
+dist/
+
+# OS
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+*~
+
+# IDE
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# Testing
+coverage/
+.nyc_output/
+
+# Temporary files
+tmp/
+temp/
+*.tmp

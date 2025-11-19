@@ -1,0 +1,19 @@
+INSTRUCCIONES PARA HACER PUSH
+=============================
+
+Ejecuta este comando en tu terminal:
+
+    ./push_con_credenciales.sh
+
+O si prefieres hacerlo directamente:
+
+    git push https://TU_USUARIO:TU_PASSWORD@github.com/josealfredo79/AgenteWhatsappv2.git master
+
+Reemplaza:
+  TU_USUARIO = josealfredo79 (o tu usuario)
+  TU_PASSWORD = tu contraseña de GitHub O tu Personal Access Token
+
+⚠️ Si GitHub no acepta contraseña, usa un Personal Access Token:
+   1. Ve a: https://github.com/settings/tokens
+   2. Genera un token (classic) con permisos 'repo'
+   3. Usa el token como contraseña

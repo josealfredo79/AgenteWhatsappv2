@@ -1,0 +1,46 @@
+name: Security Check
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+
+jobs:
+  check-secrets:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Check for sensitive files
+        run: |
+          echo "🔍 Verificando archivos sensibles..."
+          if find . -name "*.env" -not -name "*.example" -not -path "*/node_modules/*" | grep -q .; then
+            echo "❌ ERROR: Se encontraron archivos .env (excepto .example)"
+            exit 1
+          fi
+          if find . -name "*credentials*.json" -not -path "*/node_modules/*" | grep -q .; then
+            echo "❌ ERROR: Se encontraron archivos de credenciales"
+            exit 1
+          fi
+          if find . -name "*.key" -o -name "*.pem" -not -path "*/node_modules/*" | grep -q .; then
+            echo "❌ ERROR: Se encontraron archivos de keys/certificados"
+            exit 1
+          fi
+          echo "✅ No se encontraron archivos sensibles"
+      
+      - name: Check for hardcoded secrets
+        run: |
+          echo "🔍 Verificando credenciales hardcodeadas..."
+          # Buscar posibles API keys de Anthropic
+          if grep -r "sk-ant-api[0-9a-zA-Z]\{48,\}" --exclude-dir=node_modules --exclude-dir=.git . | grep -v ".example" | grep -v "SEGURIDAD.md" | grep -v "GUIA_DESPLIEGUE_RAILWAY.md" | grep -q .; then
+            echo "❌ ERROR: Posible API key de Anthropic hardcodeada"
+            exit 1
+          fi
+          # Buscar posibles Account SIDs de Twilio
+          if grep -r "AC[0-9a-zA-Z]\{32\}" --exclude-dir=node_modules --exclude-dir=.git . | grep -v ".example" | grep -v "SEGURIDAD.md" | grep -v "GUIA_DESPLIEGUE_RAILWAY.md" | grep -q .; then
+            echo "❌ ERROR: Posible Account SID de Twilio hardcodeado"
+            exit 1
+          fi
+          echo "✅ No se encontraron credenciales hardcodeadas"
