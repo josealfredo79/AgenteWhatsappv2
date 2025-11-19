@@ -1,27 +1,8 @@
 # Nixpacks configuration para Next.js en Railway
 # Optimizado para despliegue en producción
-# Nixpacks detecta automáticamente Node.js desde package.json
+# Dejar que Nixpacks detecte automáticamente las fases
 
 [phases.setup]
 nixPkgs = ["nodejs_18"]
 
-[phases.install]
-cmds = [
-  "cd frontend && npm ci --prefer-offline --no-audit"
-]
-
-[phases.build]
-cmds = [
-  "cd frontend && npm run build"
-]
-
-[phases.start]
-cmds = [
-  "cd frontend && npm run start"
-]
-
-# Caché optimizado para node_modules
-[phases.cache]
-paths = [
-  "frontend/node_modules"
-]
+# Nixpacks detectará automáticamente install, build y start desde package.json
