@@ -2,7 +2,7 @@
 # Optimizado para despliegue en producción
 
 [phases.setup]
-nixPkgs = ["nodejs-20.x"]
+nixPkgs = ["nodejs-20"]
 
 [phases.install]
 cmds = [
