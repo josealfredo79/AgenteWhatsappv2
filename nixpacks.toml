@@ -4,6 +4,6 @@
 
 [phases.setup]
 nixPkgs = ["nodejs_20"]
-nixpkgsArchive = "https://github.com/NixOS/nixpkgs/archive/refs/heads/nixos-24.05.tar.gz"
+nixpkgsArchive = "https://github.com/NixOS/nixpkgs/archive/refs/tags/23.11.tar.gz"
 
 # Nixpacks detectará automáticamente install, build y start desde package.json
