@@ -8,6 +8,7 @@
   "scripts": {
     "prestart": "node create-google-credentials.js",
     "dev": "node server.js",
+    "test": "jest --runInBand --detectOpenHandles",
     "build": "next build",
     "start": "node server.js",
     "lint": "eslint"
@@ -20,6 +21,7 @@
     "socket.io-client": "^4.8.1"
   },
   "devDependencies": {
+    "jest": "^29.6.1",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
