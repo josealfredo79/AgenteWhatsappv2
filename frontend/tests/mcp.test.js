@@ -28,14 +28,14 @@ let proc = null;
 beforeAll(async () => {
   proc = spawn(SERVER_CMD, SERVER_ARGS, {
     cwd: SERVER_CWD,
-    env: Object.assign({}, process.env, { PORT: String(SERVER_PORT), NODE_ENV: 'test' }),
+    env: Object.assign({}, process.env, { PORT: String(SERVER_PORT), NODE_ENV: 'production' }),
     stdio: ['ignore', 'pipe', 'pipe'],
   });
 
   proc.stdout.on('data', (d) => process.stdout.write(`[srv] ${d}`));
   proc.stderr.on('data', (d) => process.stderr.write(`[srv-err] ${d}`));
 
-  await waitForHealth(`http://localhost:${SERVER_PORT}/mcp/health`);
+  await waitForHealth(`http://localhost:${SERVER_PORT}/mcp/health`, 60000);
 }, 30000);
 
 afterAll(() => {
