@@ -1,3 +1,4 @@
+import path from 'path';
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
@@ -9,7 +10,9 @@ const nextConfig: NextConfig = {
   // Indica explícitamente a Turbopack cuál es la raíz del workspace
   // Esto evita la advertencia cuando hay múltiples lockfiles en el repo
   turbopack: {
-    root: '.'
+    // Usar ruta absoluta evita que Next/Turbopack infiera la raíz
+    // incorrecta cuando hay múltiples lockfiles en el repo (p.ej. root + frontend)
+    root: path.resolve(__dirname)
   },
   
   // Remover header X-Powered-By por seguridad
