@@ -2,6 +2,8 @@
 
 Este es el frontend de la aplicación Agente WhatsApp, construido con **Next.js 16** y **TypeScript**.
 
+[![CI](https://github.com/josealfredo79/AgenteWhatsappv2/actions/workflows/ci.yml/badge.svg)](https://github.com/josealfredo79/AgenteWhatsappv2/actions/workflows/ci.yml)
+
 ## 🏗️ Estructura del Proyecto
 
 ```
