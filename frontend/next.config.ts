@@ -6,6 +6,11 @@ const nextConfig: NextConfig = {
   
   // Compresión para mejor performance
   compress: true,
+  // Indica explícitamente a Turbopack cuál es la raíz del workspace
+  // Esto evita la advertencia cuando hay múltiples lockfiles en el repo
+  turbopack: {
+    root: '.'
+  },
   
   // Remover header X-Powered-By por seguridad
   poweredByHeader: false,
