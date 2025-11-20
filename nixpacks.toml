@@ -1,9 +1,8 @@
 # Nixpacks configuration para Next.js en Railway
 # Optimizado para despliegue en producción
-# Usar Node.js 20 con NixOS 24.11
+# Usar Node.js 20 en Nixpacks
 
 [phases.setup]
 nixPkgs = ["nodejs_20"]
-nixpkgsArchive = "https://github.com/NixOS/nixpkgs/archive/refs/heads/nixos-24.11.tar.gz"
 
-# Nixpacks detectará automáticamente install, build y start desde package.json
+# Nixpacks detectará automáticamente install, build y start desde `frontend/package.json`
