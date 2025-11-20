@@ -43,7 +43,14 @@ if (credentialsJson) {
   if (fs.existsSync(credentialsPath)) {
     console.log('ℹ️  Usando google-credentials.json existente (desarrollo local)');
   } else {
-    console.warn('⚠️  GOOGLE_CREDENTIALS_JSON/GOOGLE_CREDENTIALS_B64 no definiadas y no existe google-credentials.json');
+    const msg = '⚠️  GOOGLE_CREDENTIALS_JSON/GOOGLE_CREDENTIALS_B64 no definiadas y no existe google-credentials.json';
+    console.warn(msg);
     console.warn('   Las funciones de Google APIs no funcionarán sin credenciales');
+
+    // En producción queremos fail-fast: no iniciar sin credenciales válidas
+    if (process.env.NODE_ENV === 'production') {
+      console.error('❌ Entorno de producción sin credenciales de Google. Abortando arranque (fail-fast).');
+      process.exit(1);
+    }
   }
 }
