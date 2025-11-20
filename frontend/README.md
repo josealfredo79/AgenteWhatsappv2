@@ -201,6 +201,29 @@ Next.js optimizará automáticamente:
 
 ## 📚 Recursos
 
+## 📦 Despliegue rápido y credenciales (Railway)
+
+Pasos rápidos para desplegar en Railway y configurar credenciales de Google:
+
+1. En Railway → Project → Variables, añade las variables necesarias (marca como secret cuando corresponda):
+  - `TWILIO_ACCOUNT_SID`, `TWILIO_AUTH_TOKEN`, `TWILIO_WHATSAPP_NUMBER`
+  - `ANTHROPIC_API_KEY`
+  - `GOOGLE_CREDENTIALS_JSON` (preferido) o `GOOGLE_CREDENTIALS_B64`
+  - `GOOGLE_DOCS_ID`, `GOOGLE_SHEET_ID`, `GOOGLE_CALENDAR_ID` (si aplica)
+
+2. Si tu UI no acepta newlines, convierte las credenciales a base64:
+  - `base64 -w0 service-account.json > creds.b64`
+  - Copia el contenido de `creds.b64` a `GOOGLE_CREDENTIALS_B64` en Railway.
+
+3. Forzar rebuild: después de añadir variables, en Deployments elige `Redeploy` o `Rebuild without cache` para que Nixpacks seleccione `nodejs_20`.
+
+4. Verifica los logs y prueba:
+  - Health: `GET /mcp/health` debería devolver `{ "status": "ok" }`.
+
+5. CI: el repo incluye `.github/workflows/ci.yml` que construye y ejecuta tests para validar MCP.
+
+Nota: el script `frontend/create-google-credentials.js` genera `frontend/google-credentials.json` en `prestart` según las variables `GOOGLE_CREDENTIALS_JSON` o `GOOGLE_CREDENTIALS_B64`.
+
 - [Next.js Documentation](https://nextjs.org/docs)
 - [Next.js API Routes](https://nextjs.org/docs/app/building-your-application/routing/route-handlers)
 - [TypeScript Documentation](https://www.typescriptlang.org/docs/)
