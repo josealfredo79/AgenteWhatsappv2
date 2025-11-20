@@ -4,6 +4,8 @@
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.0-blue)](https://www.typescriptlang.org/)
 [![Railway](https://img.shields.io/badge/Railway-Ready-0B0D0E)](https://railway.app/)
 
+[![CI](https://github.com/josealfredo79/AgenteWhatsappv2/actions/workflows/ci.yml/badge.svg)](https://github.com/josealfredo79/AgenteWhatsappv2/actions/workflows/ci.yml)
+
 > ⚠️ **ADVERTENCIA DE SEGURIDAD:** 
 > 
 > **NUNCA subas credenciales, API keys, tokens o archivos `.env` a GitHub/GitLab.**

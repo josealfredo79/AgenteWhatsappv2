@@ -245,6 +245,17 @@ Railway desplegará automáticamente cuando:
 Servidor Next.js + Socket.io listo en http://0.0.0.0:3000
 ```
 
+### Nota importante: Forzar reconstrucción (Rebuild without cache)
+
+Si acabas de añadir o cambiar variables de entorno críticas (especialmente `GOOGLE_CREDENTIALS_JSON` o `GOOGLE_CREDENTIALS_B64`), Railway puede usar cache de dependencias o artefactos previos. Para asegurarte de que la build use la configuración y lockfile actuales, haz un **Rebuild without cache**:
+
+1. En el dashboard del proyecto, ve a **Deployments**
+2. Selecciona el deployment más reciente
+3. Haz clic en **Redeploy** y elige **Rebuild without cache** (o similar) para forzar una build limpia
+
+Esto es especialmente importante porque `frontend/create-google-credentials.js` aborta el arranque en `NODE_ENV=production` si no detecta `GOOGLE_CREDENTIALS_JSON` o `GOOGLE_CREDENTIALS_B64` (fail-fast). Si no configuras estas variables antes de un deploy, la fase `prestart` puede fallar y el proceso no iniciará.
+
+
 ### Paso 4: Obtener URL de Producción
 
 1. En el dashboard de Railway, ve a **"Settings"**
