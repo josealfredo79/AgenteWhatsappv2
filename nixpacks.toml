@@ -1,8 +1,5 @@
 # Nixpacks configuration para Next.js en Railway
 # Optimizado para despliegue en producción
-# Dejar que Nixpacks detecte automáticamente las fases
-
-[phases.setup]
-nixPkgs = ["nodejs_18"]
+# Nixpacks detectará automáticamente Node.js desde engines en package.json
 
 # Nixpacks detectará automáticamente install, build y start desde package.json
