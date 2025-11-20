@@ -8,19 +8,34 @@ const path = require('path');
  */
 
 const credentialsPath = path.join(__dirname, 'google-credentials.json');
-const credentialsJson = process.env.GOOGLE_CREDENTIALS_JSON;
+
+// Soporta dos formas de pasar credenciales en Railway:
+// 1) GOOGLE_CREDENTIALS_JSON -> JSON crudo
+// 2) GOOGLE_CREDENTIALS_B64  -> Base64 del JSON
+let credentialsJson = process.env.GOOGLE_CREDENTIALS_JSON;
+const credentialsB64 = process.env.GOOGLE_CREDENTIALS_B64;
+
+if (!credentialsJson && credentialsB64) {
+  try {
+    credentialsJson = Buffer.from(credentialsB64, 'base64').toString('utf8');
+    console.log('ℹ️  GOOGLE_CREDENTIALS_B64 detectada, decodificando base64');
+  } catch (err) {
+    console.error('❌ Error al decodificar GOOGLE_CREDENTIALS_B64:', err.message);
+    process.exit(1);
+  }
+}
 
 if (credentialsJson) {
   try {
     // Validar que sea JSON válido
     JSON.parse(credentialsJson);
-    
+
     // Escribir el archivo
     fs.writeFileSync(credentialsPath, credentialsJson, 'utf8');
     console.log('✅ google-credentials.json creado correctamente desde variable de entorno');
   } catch (error) {
     console.error('❌ Error al crear google-credentials.json:', error.message);
-    console.error('Verifica que GOOGLE_CREDENTIALS_JSON sea un JSON válido');
+    console.error('Verifica que GOOGLE_CREDENTIALS_JSON o GOOGLE_CREDENTIALS_B64 representen un JSON válido');
     process.exit(1);
   }
 } else {
@@ -28,7 +43,7 @@ if (credentialsJson) {
   if (fs.existsSync(credentialsPath)) {
     console.log('ℹ️  Usando google-credentials.json existente (desarrollo local)');
   } else {
-    console.warn('⚠️  GOOGLE_CREDENTIALS_JSON no está definida y no existe google-credentials.json');
+    console.warn('⚠️  GOOGLE_CREDENTIALS_JSON/GOOGLE_CREDENTIALS_B64 no definiadas y no existe google-credentials.json');
     console.warn('   Las funciones de Google APIs no funcionarán sin credenciales');
   }
 }
