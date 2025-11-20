@@ -31,3 +31,27 @@ jobs:
         with:
           name: frontend-build
           path: frontend/.next
+
+      - name: Start server and test MCP endpoints
+        if: success()
+        run: |
+          # Start the production server on a non-default port for tests
+          NODE_ENV=production PORT=3001 node frontend/server.js > server.log 2>&1 & echo $! > server.pid
+
+          # Wait for health endpoint to be available
+          for i in $(seq 1 30); do
+            if curl -sSf http://localhost:3001/mcp/health > /dev/null; then
+              echo "MCP health ready";
+              break;
+            fi
+            sleep 1
+          done
+
+          # POST a small JSON payload and verify response contains {"ok":true}
+          curl -sS -X POST http://localhost:3001/mcp/v1/context -H "Content-Type: application/json" -d '{"ci_test":"ok"}' -o /tmp/mcp_resp.json || (cat server.log && exit 1)
+          cat /tmp/mcp_resp.json
+          grep -q '"ok":true' /tmp/mcp_resp.json || (echo "MCP test failed" && cat server.log && exit 1)
+
+          # Cleanup
+          kill $(cat server.pid) || true
+        working-directory: .
