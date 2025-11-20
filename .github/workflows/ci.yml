@@ -22,7 +22,7 @@ jobs:
       - name: Install & Build frontend
         working-directory: frontend
         run: |
-          npm ci
+          npm ci --prefer-offline --no-audit
           npm run build
 
       - name: Upload build artifacts (optional)
@@ -36,5 +36,5 @@ jobs:
         if: success()
         working-directory: frontend
         run: |
-          npm ci
+          npm ci --prefer-offline --no-audit
           npm test
