@@ -127,6 +127,36 @@ Una vez desplegado, configura el webhook de Twilio:
 
 ---
 
+## 📦 Despliegue detallado y credenciales (Railway)
+
+Sigue estas instrucciones rápidas para asegurar un despliegue correcto en Railway:
+
+1. En el panel del proyecto (Railway) ve a **Variables** y añade las variables necesarias. Marca las sensibles como secret.
+
+2. Variables recomendadas (mínimo para producción):
+
+  - `TWILIO_ACCOUNT_SID`
+  - `TWILIO_AUTH_TOKEN`
+  - `TWILIO_WHATSAPP_NUMBER`
+  - `ANTHROPIC_API_KEY`
+  - `GOOGLE_CREDENTIALS_JSON`  (preferido) o `GOOGLE_CREDENTIALS_B64`
+  - `GOOGLE_DOCS_ID`, `GOOGLE_SHEET_ID`, `GOOGLE_CALENDAR_ID` (si aplica)
+
+3. Cómo proporcionar las credenciales de Google:
+
+  - Opción 1 (directo): Copia el contenido del archivo JSON de la cuenta de servicio en `GOOGLE_CREDENTIALS_JSON`.
+  - Opción 2 (base64): `base64 -w0 service-account.json > creds.b64` y copia el contenido a `GOOGLE_CREDENTIALS_B64`.
+
+  El script `frontend/create-google-credentials.js` generará `frontend/google-credentials.json` en `prestart` a partir de cualquiera de estas variables.
+
+4. Forzar reconstrucción: después de añadir variables, en **Deployments** elige `Redeploy` o `Rebuild without cache` para que Nixpacks seleccione la versión de Node configurada (`nodejs_20`).
+
+5. Logs y verificación: revisa los logs del build y del proceso web. El servidor responde en la ruta `/mcp/health` con `{ "status": "ok" }` cuando está listo.
+
+6. CI: el workflow `.github/workflows/ci.yml` usa Node 20 y ejecuta `cd frontend && npm test` para validar que los endpoints MCP respondan correctamente.
+
+---
+
 ## 🔐 Variables de Entorno
 
 ### Variables Requeridas
